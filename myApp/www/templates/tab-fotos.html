@@ -1,0 +1,17 @@
+<ion-view view-title="{{navTitle}}">
+
+  <ion-nav-buttons side="secondary">
+    <button class="button button-icon icon ion-ios-search-strong" ng-click="showFilterBar()"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="secao in listaSecoes">
+        <a href='{{secao.link}}' style="text-decoration: none" onclick="window.open(this.href, '_system', 'location=yes'); return false;" >
+			<p style="float:left; margin-right: 5%; font-size: 0.69em; background: #666;color: #fff;padding: 0px 6px;display: inline-block;border-radius: 3px;">{{secao.total}}</p>
+			<h2>{{secao.titulo}}</h2>
+			<i style="float:right; margin-top: -20px; color: black" class="ion-chevron-right"></i>
+		</a>   
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

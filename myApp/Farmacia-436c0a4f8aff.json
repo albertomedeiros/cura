@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "farmacia-1353",
+  "private_key_id": "436c0a4f8afff32a215609ce2f2abbbb430ab389",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDAjRo9qSgKNq7p\nmrJ6QkFH+ftBi4MNBgLknDJJM3wkgH00kSWNM38Dk4ReZ+iYpr1UfG4gnCUgsAWW\n0qZTBvmoivZ6Wf/KFsnVIKehbmYbgd32rADshuaTrqmtUy135CHcL7b9tan9Sdcd\nL1Pmvft+xQAFPA0XBsFplEsyd/s2iJzQ+tlNxab0ZzOpZrn7fDnuxt2262IOlad2\ncdP+GVd5fVULG1yBTjhSNjULbyCiLK8+7N8iLKwlmlI2lb6taQtmtH7fOGA7S9XU\nIyV9jM4zllR46RXjKJi0sZcf2ly7MiufaPcdbzpI1p2uJgDZZiefpja3QmWJpxJu\nZg2C0DlXAgMBAAECggEAT2Reo3nxxnRRnoRofrx+yjyqepYZjO8jljtJCKGv2CUa\neug2AYhwIHtcoshZQUfO3N0JU2zOajHpvAxTA/zmR7Y0drJRI3RN+BCkzY0FkOX1\nLVYyc1QUEmR8FbksEDkCNRV/cBDNbGBbz+7Ju2QuJFD59y6RfyML8IpyjvaloA/w\nzgIUl7t2R0m6RJ7ESQhhMrA7PUwSIIG9tHxm31Zxf0Iu1L4dCNJZwEAk4AV/h7s9\naxXjFWDBvP9JVsA1sSShaRMBHFUhGXguziLU/3Rd0TDBdCCFmymHQ9si78RCtpbk\nG1II5V9D/W4ocjpuGt+779GKrYknpcRbpZw3x9UNMQKBgQDm6YMVkZEYV7hwugNz\nvEpBk8HlGX1jvUXbRiasYq/0fBfDms3HJMX83AfjzV0NGUjMFDwXwSJk5zuqemtE\n9SRQ6bD5kBoQt4v6qDO17bCFCct+2vpOujftMB6rGyqK5/uEhiOH2XwQ2fT4CpOI\nsU2kIgywJoBNN2XfrZHcmlC1qwKBgQDVeKKn9bq+S70gvbKUhV7ayYu1Ko6u8OOW\nF2BmpeCPBtXtFD8+BgEwFmIb9eCDinSd2oe3ys6Gs4M4g0B4Jz22b7Vq06KWsd/f\n9lrqEu0xonazinlOS/HD0H4qud7hd7g6bsLYo2MSbJs4YkVK/gilmbQuG7Oz3yrY\ngai7L88HBQKBgFMynY1e5nVr3cOX8fh4RhT8pObj2T7filToILUJ1bX0JCfRFgWD\npWZm7NzSOI2op4cIX2J7ruXGPsQ82Xt+C/ivSpmQpyOQznmgswkAvBIjJlPtmDRX\neiEWrmYeIqTr0r68Cf8/iCkWLuJUBTZCE+RodEPfi2jG5gjCpARlAWGDAoGAdCXB\nCnXu918qNkhAhALVC2GhvB69p321tpJdhzw1pFxpxSbBCjQmLU3gb6omUCvjK4gd\nU+jq2euOOA9h4n4nW74IDWm9CxUY5DicWsOVfu4Qe7uaKPm1P3+PRhv/otmKyXA+\nX7T2UK36/oCphxYVClVI7dVwvytrmoVhkwd+MykCgYBrr2CSHyjF+Xa3WxHYr5NM\n5UGl5TqcD2GMisM1JyFLhEa3pw5zWm+qJYSDoOzKW37a8fBTg9YPunmi3sfk/Pbs\naTYS/i81xJwsSWCC8qGVuEoKFv4+9+wL6h0F6KeOgVZ7Tz58HYglSNjtkdcJDMDf\nduLgp5sygussY2Slcwtuog==\n-----END PRIVATE KEY-----\n",
+  "client_email": "farmacia-1353@appspot.gserviceaccount.com",
+  "client_id": "110115898112519659992",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/farmacia-1353%40appspot.gserviceaccount.com"
+}

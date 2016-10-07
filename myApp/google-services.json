@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "924412518063",
+    "firebase_url": "https://cura-pela-natureza.firebaseio.com",
+    "project_id": "cura-pela-natureza",
+    "storage_bucket": "cura-pela-natureza.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924412518063:android:afcc568c4f81308b",
+        "android_client_info": {
+          "package_name": "com.cura.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "924412518063-8qtvcmp938v1ev0aotldmv2r5f6qnifv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA24io9eZHPgHiI91qQgHlvR1MqvvFvRUk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
