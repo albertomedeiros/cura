@@ -13,26 +13,61 @@ function handleOpenURL(url) {
 
 angular.module('starter.controllers', [])
     
-.controller('AgendaController', function($scope, $http) {
-	
-	$scope.atualizarLista = function(){
-		momentoAtual = new Date() 
-		$scope.atualizado = momentoAtual.getHours() + ":" + momentoAtual.getMinutes();
-		$http({
-		  url: 'http://www.curapelanatureza.com.br/ultimas-mobile?v='+$scope.atualizado,
-		  method: "GET",
-		  headers: {
-			'Content-Type': 'application/json' // Note the appropriate header
-		  }
-		}).success(function(data, status) {
-			var obj = data;
-			// Passando a notícia
-			$scope.listaNode = obj;
-			
-		  }).error(function(data, status) {
-			console.log(data || "Request failed");
-		});
-	}
+.controller('AgendaController', function($scope, $http, $cordovaLocalNotification) {
+    
+//    var alarmTime = new Date();
+//alarmTime.setMinutes(alarmTime.getMinutes() + 1);
+//    $cordovaLocalNotification.add({
+//        id: "1234",
+////        date: alarmTime,
+//        message: "This is a message",
+//        title: "This is a title",
+//        autoCancel: true,
+//        sound: null
+//    }).then(function () {
+//        console.log("The notification has been set");
+//    });
+    $scope.add = function() {
+        var alarmTime = new Date();
+        alarmTime.setMinutes(alarmTime.getMinutes() + 1);
+        $cordovaLocalNotification.add({
+            id: "1234",
+            date: alarmTime,
+            message: "Cura Pela Natureza",
+            title: "Temos um novo post para vocÃª",
+            autoCancel: true,
+            sound: null,
+            icon: "img/icon.png"
+        }).then(function () {
+            console.log("The notification has been set");
+        });
+    };
+ 
+    $scope.isScheduled = function() {
+        $cordovaLocalNotification.isScheduled("1234").then(function(isScheduled) {
+            alert("Notification 1234 Scheduled: " + isScheduled);
+        });
+    }
+    
+    $scope.carregado = true;
+    $scope.atualizarLista = function(){
+        momentoAtual = new Date() 
+        $scope.atualizado = momentoAtual.getHours() + ":" + momentoAtual.getMinutes();
+        $http({
+          url: 'http://www.curapelanatureza.com.br/ultimas-mobile?v='+$scope.atualizado,
+          method: "GET",
+          headers: {
+                'Content-Type': 'application/json' // Note the appropriate header
+          }
+        }).success(function(data, status) {
+                var obj = data;
+                // Passando a notï¿½cia
+                $scope.listaNode = obj;
+                $scope.carregado = false;
+          }).error(function(data, status) {
+                console.log(data || "Request failed");
+        });
+    }
 	
 	
     $scope.GotoLink = function (url) {
@@ -56,36 +91,42 @@ angular.module('starter.controllers', [])
           }
         }).success(function(data, status) {
             var obj = data;
-            // Passando a notícia
+            // Passando a notï¿½cia
             $scope.listaSecoes = obj;
           }).error(function(data, status) {
             console.log(data || "Request failed");
         });
 })
-
 .controller('AlbunesController', function($scope, $stateParams, Locales) {
-	
-	
-
 })
-
 .controller('FavoritosController', function($scope, $http) {
     
     $scope.navTitle='<img class="title-image" style="height: 27px;margin-top: 8px;" src="img/logo.png" />';
-	
-	$http({
-	  url: 'https://www.googleapis.com/youtube/v3/activities?part=snippet&channelId=UCYSslASzgHQ_F_vuTsmmi-g&fields=items&key=AIzaSyAw1iMzPYy--o1pxJkVaxRb6W8zJvYPN94',
-	  method: "GET",
-	  headers: {
-		'Content-Type': 'application/json' // Note the appropriate header
-	  }
-	}).success(function(data, status) {
-		var obj = data;
-		// Passando a notícia
-		$scope.listaYoutube = obj;
-	  }).error(function(data, status) {
-		console.log(data || "Request failed");
-	});
+    $scope.carregado = true;
+    $http({
+      url: 'https://www.googleapis.com/youtube/v3/activities?part=snippet&channelId=UCYSslASzgHQ_F_vuTsmmi-g&fields=items&key=AIzaSyAw1iMzPYy--o1pxJkVaxRb6W8zJvYPN94',
+      method: "GET",
+      headers: {
+            'Content-Type': 'application/json' // Note the appropriate header
+      }
+    }).success(function(data, status) {
+            var obj = data;
+            var contador = 0;
+            for(contador = 0;  contador < obj.items.length; contador++){
+                itemAtual = obj.items[contador];
+                arrUrl = itemAtual.snippet.thumbnails.high.url.split("/");
+                itemAtual.url = arrUrl[4];
+                data = itemAtual.snippet.publishedAt.split("T");;
+                arrData = data[0].split("-");
+                itemAtual.data = arrData[2] + "/" + arrData[1] + "/" + arrData[0];
+                obj.items[contador] = itemAtual;
+            }
+            // Passando a notï¿½cia
+            $scope.listaYoutube = obj;
+            $scope.carregado = false;
+      }).error(function(data, status) {
+            console.log(data || "Request failed");
+    });
         
 })
 

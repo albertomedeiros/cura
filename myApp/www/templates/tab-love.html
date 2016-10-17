@@ -1,5 +1,22 @@
-<ion-view view-title="Favoritos">
+<ion-view view-title="{{navTitle}}">
   <ion-content>
-
+        <img src="img/loading.gif" style="width: 100%;" class="carregado"  ng-show="carregado">
+        <ion-list>
+            <ion-item ng-repeat="objVideo in listaYoutube.items" >        
+                <div class="list">
+                    <ion-list>
+                        <div class="item item-thumbnail-left item-text-wrap">
+                            <img src="{{objVideo.snippet.thumbnails.high.url}}" style='width: 35%; height: 100%'>
+                            <a class='linkNormal' href='https://www.youtube.com/watch?v={{objVideo.url}}' onclick="window.open(this.href, '_system', 'location=yes'); return false;" >
+                                <p><b>{{objVideo.data}}</b></p>
+                            </a>
+                            <a class='linkNormal' href='https://www.youtube.com/watch?v={{objVideo.url}}' onclick="window.open(this.href, '_system', 'location=yes'); return false;" >
+                                <h2 style='font-size: 13px;'>{{objVideo.snippet.title}}</h2>							
+                            </a>
+                        </div>				  
+                    </ion-list>
+                </div>
+            </ion-item>
+        </ion-list>
   </ion-content>
 </ion-view>
