@@ -101,10 +101,10 @@ var push = PushNotification.init({ "android": {"senderID": "924412518063", icon 
         $ionicFilterBarConfigProvider.search('ion-search');
         $ionicFilterBarConfigProvider.backdrop(true);
         $ionicFilterBarConfigProvider.transition('vertical');
-        $ionicFilterBarConfigProvider.placeholder('Search...');
+        $ionicFilterBarConfigProvider.placeholder('Buscar...');
 
         $ionicConfigProvider.backButton.previousTitleText(false);
-        $ionicConfigProvider.backButton.text('');
+        $ionicConfigProvider.backButton.text('Volar');
 
 
 

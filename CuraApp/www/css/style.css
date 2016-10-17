@@ -15,7 +15,8 @@
 }
 
 .linkNormal{
-	text-decoration: none;
+    text-decoration: none;
+    color: black;
 }
 .sessao{
 	position: absolute;

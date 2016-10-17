@@ -1,21 +1,52 @@
 function openExternal(elem) {
-    console.log(elem.href);
     window.open(elem.href, "_system");
     return false; // Prevent execution of the default onClick handler 
 }
 
 function handleOpenURL(url) {
-	console.log(url)
     // Open in external browser
-	window.open('http://google.com','_system','location=yes');
-	return false;
+    window.open(url,'_system','location=yes');
+    return false;
 }
 
 angular.module('starter.controllers', [])
     
-.controller('AgendaController', function($scope, $http, $cordovaLocalNotification) {
+.controller('AgendaController', function($scope, $http, $cordovaLocalNotification,$ionicFilterBar, $ionicModal) {
+    
+    /***** MODAL DE INFORMAÇÕES DA CARRINHO ******/
+    // Create the login modal that we will use later
+    $ionicModal.fromTemplateUrl('templates/busca.html', {
+        scope: $scope
+    }).then(function(modal) {
+      $scope.modalCarrinho = modal;
+    });
+
+    // Triggered in the login modal to close it
+    $scope.closeModalCarrinho = function() {
+        $scope.modalCarrinho.hide();
+    };
+    
+    $scope.showFilterBar = function () {
+        $scope.modalCarrinho.show();
+    };
+    // Open the login modal
+    $scope.abrirCarrinho = function() {
+        $scope.modalCarrinho.show();
+    };
+    
+    $scope.busca = {};
+    $scope.doBuscar = function(){
+        
+        handleOpenURL("http://www.curapelanatureza.com.br/search/node/" + $scope.busca.texto);
+    }
+    /***** FIM MODAL DE INFORMAÇÕES DA CARRINHO ******/
+    
     
     $scope.carregado = true;
+    $scope.openExternalTeste = function(element){
+        handleOpenURL(element)
+    }
+    
     $scope.atualizarLista = function(){
         momentoAtual = new Date() 
 		minutos = parseInt(momentoAtual.getMinutes()) > 10 ?  momentoAtual.getMinutes() : "0" +  momentoAtual.getMinutes();
@@ -51,8 +82,8 @@ angular.module('starter.controllers', [])
     // Agendando próxima execução
     $scope.add = function() {
         var alarmTime = new Date();
-        var proximaNotificacao = alarmTime.getMinutes() + 1;
-        alarmTime.setMinutes(proximaNotificacao);
+        var proximaNotificacao = alarmTime.getHours() + 2;
+        alarmTime.setHours(proximaNotificacao);
 		// Agendando a notificação
         $cordovaLocalNotification.add({
             id: "1234",
@@ -69,7 +100,7 @@ angular.module('starter.controllers', [])
 				console.log("execução em 2 minutos")
 				// Iniciando as notificaçoes
 				$scope.add();
-			}, 120000);
+			}, 1000);
         });
     };
     // Iniciando a notificação em 1 segundo
@@ -80,25 +111,57 @@ angular.module('starter.controllers', [])
     
 })
 
-.controller('FotosController', function($scope, $http) {
-        $scope.navTitle='<img class="title-image" style="height: 27px;margin-top: 8px;" src="img/logo.png" />';
-        $http({
-          url: 'http://www.curapelanatureza.com.br/secoes-mobile',
-          method: "GET",
-          headers: {
-            'Content-Type': 'application/json' // Note the appropriate header
-          }
-        }).success(function(data, status) {
-            var obj = data;
-            // Passando a not�cia
-            $scope.listaSecoes = obj;
-          }).error(function(data, status) {
-            console.log(data || "Request failed");
-        });
+.controller('FotosController', function($scope, $http,$ionicFilterBar, $ionicModal) {
+    $scope.navTitle='<img class="title-image" style="height: 27px;margin-top: 8px;" src="img/logo.png" />';
+    $http({
+      url: 'http://www.curapelanatureza.com.br/secoes-mobile',
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json' // Note the appropriate header
+      }
+    }).success(function(data, status) {
+        var obj = data;
+        // Passando a not�cia
+        $scope.listaSecoes = obj;
+      }).error(function(data, status) {
+        console.log(data || "Request failed");
+    });
+    
+    $scope.openExternalTeste = function(element){
+        handleOpenURL(element)
+    }
+    
+    /***** MODAL DE INFORMAÇÕES DA CARRINHO ******/
+    // Create the login modal that we will use later
+    $ionicModal.fromTemplateUrl('templates/busca.html', {
+        scope: $scope
+    }).then(function(modal) {
+      $scope.modalCarrinho = modal;
+    });
+
+    // Triggered in the login modal to close it
+    $scope.closeModalCarrinho = function() {
+        $scope.modalCarrinho.hide();
+    };
+    
+    $scope.showFilterBar = function () {
+        $scope.modalCarrinho.show();
+    };
+    // Open the login modal
+    $scope.abrirCarrinho = function() {
+        $scope.modalCarrinho.show();
+    };
+    
+    $scope.busca = {};
+    $scope.doBuscar = function(){
+        
+        handleOpenURL("http://www.curapelanatureza.com.br/search/node/" + $scope.busca.texto);
+    }
+    /***** FIM MODAL DE INFORMAÇÕES DA CARRINHO ******/
 })
 .controller('AlbunesController', function($scope, $stateParams, Locales) {
 })
-.controller('FavoritosController', function($scope, $http) {
+.controller('FavoritosController', function($scope, $http,$ionicFilterBar, $ionicModal) {
     
     $scope.navTitle='<img class="title-image" style="height: 27px;margin-top: 8px;" src="img/logo.png" />';
     $scope.carregado = true;
@@ -114,7 +177,7 @@ angular.module('starter.controllers', [])
             for(contador = 0;  contador < obj.items.length; contador++){
                 itemAtual = obj.items[contador];
                 arrUrl = itemAtual.snippet.thumbnails.high.url.split("/");
-                itemAtual.url = arrUrl[4];
+                itemAtual.url = "https://www.youtube.com/watch?v=" + arrUrl[4];
                 data = itemAtual.snippet.publishedAt.split("T");;
                 arrData = data[0].split("-");
                 itemAtual.data = arrData[2] + "/" + arrData[1] + "/" + arrData[0];
@@ -127,6 +190,36 @@ angular.module('starter.controllers', [])
             console.log(data || "Request failed");
     });
         
+    /***** MODAL DE INFORMAÇÕES DA CARRINHO ******/
+    // Create the login modal that we will use later
+    $ionicModal.fromTemplateUrl('templates/busca.html', {
+        scope: $scope
+    }).then(function(modal) {
+      $scope.modalCarrinho = modal;
+    });
+
+    // Triggered in the login modal to close it
+    $scope.closeModalCarrinho = function() {
+        $scope.modalCarrinho.hide();
+    };
+    
+    $scope.showFilterBar = function () {
+        $scope.modalCarrinho.show();
+    };
+    // Open the login modal
+    $scope.abrirCarrinho = function() {
+        $scope.modalCarrinho.show();
+    };
+    
+    $scope.busca = {};
+    $scope.doBuscar = function(){
+        
+        handleOpenURL("http://www.curapelanatureza.com.br/search/node/" + $scope.busca.texto);
+    }
+    /***** FIM MODAL DE INFORMAÇÕES DA CARRINHO ******/
+    $scope.openExternalTeste = function(element){
+        handleOpenURL(element)
+    }
 })
 
 .controller('AjustesController', function($scope) {
