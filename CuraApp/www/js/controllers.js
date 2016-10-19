@@ -5,7 +5,7 @@ function openExternal(elem) {
 
 function handleOpenURL(url) {
     // Open in external browser
-    window.open(url,'_system','location=yes');
+    window.open(url, "_system");
     return false;
 }
 
@@ -20,12 +20,12 @@ angular.module('starter.controllers', [])
     }).then(function(modal) {
       $scope.modalCarrinho = modal;
     });
-
     // Triggered in the login modal to close it
-    $scope.closeModalCarrinho = function() {
+    $scope.fecharCarrinho = function() {
+                console.log("aaa");
         $scope.modalCarrinho.hide();
+        return false;
     };
-    
     $scope.showFilterBar = function () {
         $scope.modalCarrinho.show();
     };
@@ -33,14 +33,13 @@ angular.module('starter.controllers', [])
     $scope.abrirCarrinho = function() {
         $scope.modalCarrinho.show();
     };
-    
     $scope.busca = {};
-    $scope.doBuscar = function(){
-        
-        handleOpenURL("http://www.curapelanatureza.com.br/search/node/" + $scope.busca.texto);
+    $scope.doBuscar = function(){ 
+        // Open in external browser
+        window.open("http://www.curapelanatureza.com.br/search/node/" + (($scope.busca.texto != undefined && $scope.busca.texto != "") ? $scope.busca.texto : ""), "_system");
+        return false;
     }
     /***** FIM MODAL DE INFORMAÇÕES DA CARRINHO ******/
-    
     
     $scope.carregado = true;
     $scope.openExternalTeste = function(element){
@@ -49,7 +48,7 @@ angular.module('starter.controllers', [])
     
     $scope.atualizarLista = function(){
         momentoAtual = new Date() 
-		minutos = parseInt(momentoAtual.getMinutes()) > 10 ?  momentoAtual.getMinutes() : "0" +  momentoAtual.getMinutes();
+        minutos = parseInt(momentoAtual.getMinutes()) >= 10 ?  momentoAtual.getMinutes() : "0" +  momentoAtual.getMinutes();
 		
         $scope.atualizado = momentoAtual.getHours() + ":" + minutos;
         $http({
@@ -94,6 +93,7 @@ angular.module('starter.controllers', [])
             sound: null,
             icon: "img/icon.png"
         }).then(function () {
+            $scope.atualizarLista();
             console.log("Próxima notificação em: " + proximaNotificacao);
             // Iniciando as notificaçoes
             setTimeout(function(){
