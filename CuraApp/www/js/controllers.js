@@ -35,8 +35,12 @@ angular.module('starter.controllers', [])
     };
     $scope.busca = {};
     $scope.doBuscar = function(){ 
-        // Open in external browser
-        window.open("http://www.curapelanatureza.com.br/search/node/" + (($scope.busca.texto != undefined && $scope.busca.texto != "") ? $scope.busca.texto : ""), "_system");
+        if($scope.busca.texto != undefined && $scope.busca.texto.length > 2){
+            // Open in external browser
+            window.open("http://www.curapelanatureza.com.br/search/node/" + (($scope.busca.texto != undefined && $scope.busca.texto != "") ? $scope.busca.texto : ""), "_system");
+        }else{
+            alert("É necessário digicar uma palavra com ao menos 3 letras");
+        }
         return false;
     }
     /***** FIM MODAL DE INFORMAÇÕES DA CARRINHO ******/
@@ -72,42 +76,39 @@ angular.module('starter.controllers', [])
         console.log(url);
         window.open(url,'_system');
     }
-    
+    // Atualizando a lista
     $scope.atualizarLista();
-	
+    // Iniciando
     $scope.navTitle='<img class="title-image title-center" style="height: 27px;margin-top: 8px;" src="img/logo.png" />';
-    
-    
     // Agendando próxima execução
     $scope.add = function() {
-        var alarmTime = new Date();
-        var proximaNotificacao = alarmTime.getHours() + 2;
-        alarmTime.setHours(proximaNotificacao);
-		// Agendando a notificação
-        $cordovaLocalNotification.add({
-            id: "1234",
-            date: alarmTime,
-            message: "Cura Pela Natureza",
-            title: "Temos um novo post para você",
-            autoCancel: true,
-            sound: null,
-            icon: "img/icon.png"
-        }).then(function () {
-            $scope.atualizarLista();
-            console.log("Próxima notificação em: " + proximaNotificacao);
-            // Iniciando as notificaçoes
-            setTimeout(function(){
-				console.log("execução em 2 minutos")
-				// Iniciando as notificaçoes
-				$scope.add();
-			}, 1000);
-        });
+        // Iniciando as notificaçoes
+        setTimeout(function(){
+            var alarmTime = new Date();
+            var proximaNotificacao = alarmTime.getMinutes() + 1;
+            alarmTime.setMinutes()(proximaNotificacao);
+            // Agendando a notificação
+            $cordovaLocalNotification.add({
+                id: "1234",
+                date: alarmTime,
+                message: "Cura Pela Natureza",
+                title: "Temos um novo post para você",
+                autoCancel: true,
+                sound: null,
+                icon: "img/icon.png"
+            }).then(function () {
+                $scope.atualizarLista();
+                console.log("Próxima notificação em: " + proximaNotificacao);
+            });
+            // Mandento a execução
+            $scope.add();
+        }, 7200000);
     };
     // Iniciando a notificação em 1 segundo
-	setTimeout(function(){
-		// Iniciando as notificaçoes
-		$scope.add();
-	}, 1000);
+    setTimeout(function(){
+            // Iniciando as notificaçoes
+            $scope.add();
+    }, 1000);
     
 })
 
