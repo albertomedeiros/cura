@@ -23,3 +23,7 @@
     right: 4%;
     top: 18px;
 }
+
+.tabs-top.tabs-striped .tab-item.tab-item-active, .tabs-top.tabs-striped .tab-item.active, .tabs-top.tabs-striped .tab-item.activated {
+    background: #3c9a59 !important;
+}

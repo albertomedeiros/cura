@@ -50,6 +50,7 @@ angular.module('starter.controllers', [])
         handleOpenURL(element)
     }
     
+    var horaUltimoPost = "12:23";
     $scope.atualizarLista = function(){
         momentoAtual = new Date() 
         minutos = parseInt(momentoAtual.getMinutes()) >= 10 ?  momentoAtual.getMinutes() : "0" +  momentoAtual.getMinutes();
@@ -66,12 +67,16 @@ angular.module('starter.controllers', [])
                 // Passando a not�cia
                 $scope.listaNode = obj;
                 $scope.carregado = false;
-          }).error(function(data, status) {
-                console.log(data || "Request failed");
-        });
+                arr = Array.from(obj);
+                for( var i in obj ) {
+                    if (obj.hasOwnProperty(i)){
+//                        horaUltimoPost =obj[i][0].hora;
+                        break;
+                    }
+                }
+          }).error(function(data, status) {});
     }
-	
-	
+    // Irá abrir o link no navegador
     $scope.GotoLink = function (url) {
         console.log(url);
         window.open(url,'_system');
@@ -84,9 +89,41 @@ angular.module('starter.controllers', [])
     $scope.add = function() {
         // Iniciando as notificaçoes
         setTimeout(function(){
-            var alarmTime = new Date();
-            var proximaNotificacao = alarmTime.getMinutes() + 1;
-            alarmTime.setMinutes()(proximaNotificacao);
+            var horaAtual = "";
+            $http({
+                url: 'http://www.curapelanatureza.com.br/ultimas-mobile?v='+$scope.atualizado,
+                method: "GET",
+                headers: {
+                      'Content-Type': 'application/json' // Note the appropriate header
+                }
+            }).success(function(data, status) {
+                var obj = data;
+                arr = Array.from(obj);
+                for( var i in obj ) {
+                    if (obj.hasOwnProperty(i)){
+                        horaAtual =obj[i][0].hora;
+                        break;
+                    }
+                }
+                // Caso a ultima hora seja diferente que a atual
+                if(horaUltimoPost != horaAtual){
+                    horaUltimoPost = horaAtual;
+                    $scope.adicionarNotificacao();
+                }else{
+                            console.log("está certo");
+                }
+            }).error(function(data, status) {});
+            // Mandento a execução
+            $scope.add();
+        }, 60000);
+    };
+    // Iniciando as notificaçoes
+    $scope.add();
+    // Método que irá adicionar notificação sempre que tiver uma nova
+    $scope.adicionarNotificacao = function(){
+        var alarmTime = new Date();
+            var proximaNotificacao = alarmTime.getMinutes();
+            alarmTime.setMinutes(proximaNotificacao);
             // Agendando a notificação
             $cordovaLocalNotification.add({
                 id: "1234",
@@ -98,18 +135,8 @@ angular.module('starter.controllers', [])
                 icon: "img/icon.png"
             }).then(function () {
                 $scope.atualizarLista();
-                console.log("Próxima notificação em: " + proximaNotificacao);
             });
-            // Mandento a execução
-            $scope.add();
-        }, 7200000);
     };
-    // Iniciando a notificação em 1 segundo
-    setTimeout(function(){
-            // Iniciando as notificaçoes
-            $scope.add();
-    }, 1000);
-    
 })
 
 .controller('FotosController', function($scope, $http,$ionicFilterBar, $ionicModal) {
